@@ -4,36 +4,57 @@
 # Version: 1
 
 def main():
-    aantal_genen()
-    # aantal_genen(bestandsnaam)
-    # groter_gc_perc_dan(bestandsnaam, gc_perc=50)
-    # gemiddelde_lengte(bestandsnaam)
+    naamBestand = "chr1.csv"
+    aantal = aantal_genen(naamBestand)
+    groter_gc_perc_dan(naamBestand)
+    #gemiddelde_lengte(naamBestand, aantal)
 
-def aantal_genen():
+
+def aantal_genen(naamBestand):
     """
     bestand openen,
     splitten op de komma,
     mogelijk in lijst zetten?
     aantal genen tellen
-    :return:
+    :return: bestand
     """
     aantal = 0
-    bestand = open("chr1.csv", "r")
+    bestand = open(naamBestand, "r")
+    bestand.readline()
     for regel in bestand:
         positie = regel.split(",")[0]
-        if positie[0:] == "Gene stable ID":
-            aantal += 1
-        aantal = len(positie)
+        aantal += 1
     print(aantal)
+    bestand.close()
+    return aantal
 
 
+def groter_gc_perc_dan(naamBestand):
+    """
+    :param: bestand
+    :return:
+    """
+    gc_perc = 50
+    boven_vijftig = []
+    bestand = open(naamBestand, "r")
+    bestand.readline()
+    for regel in bestand:
+        positie = regel.strip().split(",")[5]
+        boven_vijftig.append(float(positie))
+    bestand.close()
+    print(boven_vijftig)
+
+    # if positie == gc_perc or positie >= gc_perc:
+    # boven_vijftig.append(positie)
+    # print(positie)
 
 
-def groter_gc_per_dan():
-    pass
-
-def gemiddelde_lengte():
-    pass
+def gemiddelde_lengte(bestand, aantal):
+    """
+    :param bestand:
+    :param aantal:
+    :return:
+    """
 
 
 main()
